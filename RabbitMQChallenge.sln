@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{FF21B22E-C958-449E-974B-D99E4C2CAAD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.TrackingAPI", "RabbitMQChallenge.TrackingAPI\RabbitMQChallenge.TrackingAPI.csproj", "{7EA16883-BEFB-457D-982E-E1B5580BD814}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EA16883-BEFB-457D-982E-E1B5580BD814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA16883-BEFB-457D-982E-E1B5580BD814}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA16883-BEFB-457D-982E-E1B5580BD814}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA16883-BEFB-457D-982E-E1B5580BD814}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7EA16883-BEFB-457D-982E-E1B5580BD814} = {FF21B22E-C958-449E-974B-D99E4C2CAAD4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1CE3CAC-5E47-4405-BC18-9B6B2214D3B9}
+	EndGlobalSection
+EndGlobal
