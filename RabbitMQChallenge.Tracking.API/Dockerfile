@@ -11,17 +11,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["RabbitMQChallenge.TrackingAPI/RabbitMQChallenge.TrackingAPI.csproj", "RabbitMQChallenge.TrackingAPI/"]
-RUN dotnet restore "./RabbitMQChallenge.TrackingAPI/RabbitMQChallenge.TrackingAPI.csproj"
+COPY ["RabbitMQChallenge.Tracking.API/RabbitMQChallenge.Tracking.API.csproj", "RabbitMQChallenge.Tracking.API/"]
+RUN dotnet restore "./RabbitMQChallenge.Tracking.API/RabbitMQChallenge.Tracking.API.csproj"
 COPY . .
-WORKDIR "/src/RabbitMQChallenge.TrackingAPI"
-RUN dotnet build "./RabbitMQChallenge.TrackingAPI.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+WORKDIR "/src/RabbitMQChallenge.Tracking.API"
+RUN dotnet build "./RabbitMQChallenge.Tracking.API.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./RabbitMQChallenge.TrackingAPI.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./RabbitMQChallenge.Tracking.API.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "RabbitMQChallenge.TrackingAPI.dll"]
+ENTRYPOINT ["dotnet", "RabbitMQChallenge.Tracking.API.dll"]

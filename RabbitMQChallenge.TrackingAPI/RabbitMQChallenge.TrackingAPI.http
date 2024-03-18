@@ -1,6 +1,0 @@
-@RabbitMQChallenge.TrackingAPI_HostAddress = http://localhost:5268
-
-GET {{RabbitMQChallenge.TrackingAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
