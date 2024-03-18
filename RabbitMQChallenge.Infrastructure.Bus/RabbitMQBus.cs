@@ -1,22 +1,27 @@
-﻿using RabbitMQ.Client;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
 using RabbitMQChallenge.Domain.Core.Bus;
 using System.Text;
 
 namespace RabbitMQChallenge.Infrastructure.Bus
 {
-    public class RabbitMQBus : IBus
+    public class RabbitMQBus(IConfiguration config) : IBus
     {
-        public void Publish(string message) 
-        { 
+        private readonly IConfiguration _config = config;
+
+        public void Publish<T>(T payload, string queueName) where T : class
+        {             
             ConnectionFactory factory = new ()
             {
-                HostName = "localhost",
+                HostName = _config["BusConfig:HostName"],
             };
+
+            string message = JsonConvert.SerializeObject(payload);
 
             using IConnection conn = factory.CreateConnection();
             using IModel model = conn.CreateModel();
 
-            string queueName = "test";
             byte[] body = Encoding.UTF8.GetBytes(message);
 
             model.QueueDeclare(queueName, false, false, false, null);

@@ -2,6 +2,6 @@
 {
     public interface IBus
     {
-        void Publish(string message);
+        void Publish<T>(T payload, string queueName) where T : class;
     }
 }

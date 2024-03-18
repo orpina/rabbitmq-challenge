@@ -1,8 +1,9 @@
+using RabbitMQChallenge.Infrastructure.IoC;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//DependencyContainer
-//    .RegisterServices(builder.Services);
+DependencyContainer.Register(builder.Services);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

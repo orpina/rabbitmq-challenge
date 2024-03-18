@@ -11,19 +11,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tracking", "Tracking", "{FC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{E9FDA84A-6C0F-4586-B2AE-72651E42FB1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Tracking.API", "RabbitMQChallenge.Tracking.API\RabbitMQChallenge.Tracking.API.csproj", "{805625B2-B35B-4D28-94BA-9E97833EC98F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQChallenge.Tracking.API", "RabbitMQChallenge.Tracking.API\RabbitMQChallenge.Tracking.API.csproj", "{805625B2-B35B-4D28-94BA-9E97833EC98F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bus", "Bus", "{1598A1F7-D6C2-4B9F-8AFA-03CCBADD251A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Infrastructure.Bus", "RabbitMQChallenge.Infrastructure.Bus\RabbitMQChallenge.Infrastructure.Bus.csproj", "{EA7DF751-2686-4D11-A179-C589E314DC2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQChallenge.Infrastructure.Bus", "RabbitMQChallenge.Infrastructure.Bus\RabbitMQChallenge.Infrastructure.Bus.csproj", "{EA7DF751-2686-4D11-A179-C589E314DC2E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{5FD745C3-E108-4894-B6A8-F5F1874418EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Domain.Core", "RabbitMQChallenge.Domain.Core\RabbitMQChallenge.Domain.Core.csproj", "{065C3FFA-6380-4CEB-AB93-903925383595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQChallenge.Domain.Core", "RabbitMQChallenge.Domain.Core\RabbitMQChallenge.Domain.Core.csproj", "{065C3FFA-6380-4CEB-AB93-903925383595}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IoC", "IoC", "{E6DB5F8D-CED3-4387-98E2-D060964DD4FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Infrastructure.IoC", "RabbitMQChallenge.Infrastructure.IoC\RabbitMQChallenge.Infrastructure.IoC.csproj", "{DFC4DEA6-B200-4260-9674-CA969E934F67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQChallenge.Infrastructure.IoC", "RabbitMQChallenge.Infrastructure.IoC\RabbitMQChallenge.Infrastructure.IoC.csproj", "{DFC4DEA6-B200-4260-9674-CA969E934F67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{ADB67247-B9A9-402A-AF42-32644D22D442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Tracking.Application", "RabbitMQChallenge.Tracking.Application\RabbitMQChallenge.Tracking.Application.csproj", "{7DA43452-9303-45B7-BC55-7345FED3BF31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,10 @@ Global
 		{DFC4DEA6-B200-4260-9674-CA969E934F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFC4DEA6-B200-4260-9674-CA969E934F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFC4DEA6-B200-4260-9674-CA969E934F67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DA43452-9303-45B7-BC55-7345FED3BF31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DA43452-9303-45B7-BC55-7345FED3BF31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DA43452-9303-45B7-BC55-7345FED3BF31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DA43452-9303-45B7-BC55-7345FED3BF31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,8 @@ Global
 		{065C3FFA-6380-4CEB-AB93-903925383595} = {5FD745C3-E108-4894-B6A8-F5F1874418EF}
 		{E6DB5F8D-CED3-4387-98E2-D060964DD4FB} = {59A124D8-522F-4C75-9F4E-C7C9E67F7B98}
 		{DFC4DEA6-B200-4260-9674-CA969E934F67} = {E6DB5F8D-CED3-4387-98E2-D060964DD4FB}
+		{ADB67247-B9A9-402A-AF42-32644D22D442} = {FC2F0CBC-D927-484C-B056-FB9E840AAACA}
+		{7DA43452-9303-45B7-BC55-7345FED3BF31} = {ADB67247-B9A9-402A-AF42-32644D22D442}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1CE3CAC-5E47-4405-BC18-9B6B2214D3B9}

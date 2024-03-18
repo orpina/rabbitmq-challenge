@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RabbitMQChallenge.Tracking.API.Models;
-using RabbitMQChallenge.Tracking.API.Services;
+using RabbitMQChallenge.Tracking.Application.Models;
+using RabbitMQChallenge.Tracking.Application.Services;
 
 namespace RabbitMQChallenge.Tracking.API.Controllers
 {

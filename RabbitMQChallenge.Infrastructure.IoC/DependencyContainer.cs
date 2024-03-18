@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RabbitMQChallenge.Domain.Core.Bus;
 using RabbitMQChallenge.Infrastructure.Bus;
-using RabbitMQChallenge.Tracking.API.Services;
+using RabbitMQChallenge.Tracking.Application.Services;
 
 namespace RabbitMQChallenge.Infrastructure.IoC
 {

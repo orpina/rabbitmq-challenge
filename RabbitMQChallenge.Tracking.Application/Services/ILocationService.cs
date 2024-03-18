@@ -1,6 +1,6 @@
-﻿using RabbitMQChallenge.Tracking.API.Models;
+﻿using RabbitMQChallenge.Tracking.Application.Models;
 
-namespace RabbitMQChallenge.Tracking.API.Services
+namespace RabbitMQChallenge.Tracking.Application.Services
 {
     public interface ILocationService
     {
