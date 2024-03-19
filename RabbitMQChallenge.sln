@@ -29,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Tracking.Application", "RabbitMQChallenge.Tracking.Application\RabbitMQChallenge.Tracking.Application.csproj", "{7DA43452-9303-45B7-BC55-7345FED3BF31}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GPSSimulator", "GPSSimulator", "{422C9ECE-7625-42F7-8282-61A0C4B98D9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPSSimulator", "GPSSimulator\GPSSimulator.csproj", "{B193455B-0E86-409D-B10B-F81A953EA0A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,10 @@ Global
 		{7DA43452-9303-45B7-BC55-7345FED3BF31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DA43452-9303-45B7-BC55-7345FED3BF31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DA43452-9303-45B7-BC55-7345FED3BF31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B193455B-0E86-409D-B10B-F81A953EA0A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B193455B-0E86-409D-B10B-F81A953EA0A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B193455B-0E86-409D-B10B-F81A953EA0A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B193455B-0E86-409D-B10B-F81A953EA0A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +78,7 @@ Global
 		{DFC4DEA6-B200-4260-9674-CA969E934F67} = {E6DB5F8D-CED3-4387-98E2-D060964DD4FB}
 		{ADB67247-B9A9-402A-AF42-32644D22D442} = {FC2F0CBC-D927-484C-B056-FB9E840AAACA}
 		{7DA43452-9303-45B7-BC55-7345FED3BF31} = {ADB67247-B9A9-402A-AF42-32644D22D442}
+		{B193455B-0E86-409D-B10B-F81A953EA0A2} = {422C9ECE-7625-42F7-8282-61A0C4B98D9A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1CE3CAC-5E47-4405-BC18-9B6B2214D3B9}
