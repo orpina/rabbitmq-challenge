@@ -7,9 +7,9 @@ namespace RabbitMQChallenge.Domain.Core.Interfaces
         void Publish<T>(T customEvent)
             where T : BaseEvent;
 
-        void Subscribe<T, TH>() 
+        void Subscribe<T, R>() 
             where T : BaseEvent 
-            where TH : IMessageBusHandler<T>;
+            where R : IMessageBusHandler<T>;
 
         Task SendCommand<T>(T command)
             where T : BaseCommand;

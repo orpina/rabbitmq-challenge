@@ -1,55 +1,76 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MediatR;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using RabbitMQChallenge.Domain.Core.Bus;
+using RabbitMQChallenge.Domain.Core.Abstractions;
+using RabbitMQChallenge.Domain.Core.Interfaces;
 using System.Text;
 
 namespace RabbitMQChallenge.Infrastructure.Bus
 {
-    public class RabbitMQBus(IConfiguration config) : IBus
+    public class RabbitMQBus(IConfiguration config, IMediator mediator, IServiceScopeFactory serviceScopeFactory) : IMessageBus
     {
+        private readonly IServiceScopeFactory _serviceScopeFactory = serviceScopeFactory;
         private readonly IConfiguration _config = config;
+        private readonly IMediator _mediator = mediator;
         private readonly Dictionary<string, List<Type>> _handlers = [];
+        private readonly List<Type> _eventTypes = [];
 
-        public void Publish<T>(T payload, string queueName) where T : class
+        public void Publish<T>(T customEvent)
+            where T : BaseEvent
         {             
             ConnectionFactory factory = new ()
             {
                 HostName = _config["BusConfig:HostName"],
             };
 
-            string message = JsonConvert.SerializeObject(payload);
+            string eventName = customEvent.GetType().Name;
+            string message = JsonConvert.SerializeObject(customEvent);
 
             using IConnection conn = factory.CreateConnection();
             using IModel model = conn.CreateModel();
 
             byte[] body = Encoding.UTF8.GetBytes(message);
 
-            model.QueueDeclare(queueName, false, false, false, null);
-            model.BasicPublish(string.Empty, queueName, null, body);
+            model.QueueDeclare(eventName, false, false, false, null);
+            model.BasicPublish(string.Empty, eventName, null, body);
         }
 
-        public void Subscribe<T>(string queueName)
+        public void Subscribe<T, R>()
+            where T : BaseEvent
+            where R : IMessageBusHandler<T>
         {
-            Type handlerType = typeof(T);
+            string eventName = typeof(T).Name;
+            Type handlerType = typeof(R);
 
-            bool existsQueueName = _handlers.ContainsKey(queueName);
+            bool existsEventType = _eventTypes.Contains(typeof(T));
+            if (!existsEventType)
+            {
+                _eventTypes.Add(typeof(T));
+            }
 
+            bool existsQueueName = _handlers.ContainsKey(eventName);
             if (!existsQueueName)
             {
-                _handlers.Add(queueName, []);
+                _handlers.Add(eventName, []);
             }
 
-            if (!_handlers[queueName].Any(h => h.GetType() == handlerType))
+            if (!_handlers[eventName].Any(h => h.GetType() == handlerType))
             {
-                _handlers[queueName].Add(handlerType);
+                _handlers[eventName].Add(handlerType);
             }
 
-            Initialize<T>(queueName);
+            Initialize<T>();
         }
 
-        private void Initialize<T>(string queueName)
+        public Task SendCommand<T>(T command) where T : BaseCommand
+        {
+            return _mediator.Send(command);
+        }
+
+        private void Initialize<T>()
         {
             ConnectionFactory factory = new()
             {
@@ -57,72 +78,62 @@ namespace RabbitMQChallenge.Infrastructure.Bus
                 DispatchConsumersAsync = true,
             };
 
+            string eventName = typeof(T).Name;
+
             IConnection conn = factory.CreateConnection();
             IModel model = conn.CreateModel();
 
-            model.QueueDeclare(queueName, false, false, false, null);
+            model.QueueDeclare(eventName, false, false, false, null);
 
             AsyncEventingBasicConsumer consumer = new(model);
 
-            //consumer.Received += Consumer_Received;
-            consumer.Received += async (model, e) =>
-            {
-                string queueName = e.RoutingKey;
-                var message = Encoding.UTF8.GetString(e.Body.Span);
+            consumer.Received += Consumer_Received;
 
-                try
-                {
-                    await ProcessEvent(queueName, message, typeof(T)).ConfigureAwait(false);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            };
-
-            model.BasicConsume(queueName, true, consumer);
+            model.BasicConsume(eventName, true, consumer);
         }
 
-        //private async Task Consumer_Received(object sender, BasicDeliverEventArgs e, Type handlerType)
-        //{
-        //    string queueName = e.RoutingKey;
-        //    var message = Encoding.UTF8.GetString(e.Body.Span);
+        private async Task Consumer_Received(object sender, BasicDeliverEventArgs e)
+        {
+            string eventName = e.RoutingKey;
+            var message = Encoding.UTF8.GetString(e.Body.Span);
 
-        //    try
-        //    {
-        //        await ProcessEvent(queueName, message).ConfigureAwait(false);
-        //    }
-        //    catch (Exception)
-        //    {
+            try
+            {
+                await ProcessEvent(eventName, message).ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
 
-        //        throw;
-        //    }
-        //}
+                throw;
+            }
+        }
 
-        private async Task ProcessEvent(string queueName, string message, Type handlerType)
+        private async Task ProcessEvent(string queueName, string message)
         {
             bool exists = _handlers.ContainsKey(queueName);
 
             if (exists)
             {
+                using IServiceScope scope = _serviceScopeFactory.CreateScope();
+
                 List<Type> subscriptions = _handlers[queueName];
 
                 foreach (var subscription in subscriptions)
                 {
-                    object handler = Activator.CreateInstance(subscription)!;
+                    object handler = scope.ServiceProvider.GetService(subscription)!;
 
                     if (handler is null)
                     {
                         continue;
                     }
 
-                    //Type eventType = _eventTypes.SingleOrDefault(t => t.Name == queueName)!;                    
+                    Type eventType = _eventTypes.SingleOrDefault(t => t.Name == queueName)!;
 
-                    Type type = typeof(IBusMessageHandler).MakeGenericType(handlerType)!;
+                    object @event = JsonConvert.DeserializeObject(message, eventType)!;
 
-                    object payload = JsonConvert.DeserializeObject(message)!;
+                    Type concreteType = typeof(IMessageBusHandler<>).MakeGenericType(eventType)!;
 
-                    await (Task)type.GetMethod("ProcessMessage")?.Invoke(handler, [payload])!;
+                    await (Task)concreteType.GetMethod("Handle")?.Invoke(handler, [@event])!;
                 }
             }
         }
