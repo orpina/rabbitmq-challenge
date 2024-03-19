@@ -1,13 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
-using RabbitMQChallenge.Domain.Core.Bus;
+﻿using RabbitMQChallenge.Domain.Core.Interfaces;
+using RabbitMQChallenge.Tracking.Application.Commands;
 using RabbitMQChallenge.Tracking.Application.Models;
 
 namespace RabbitMQChallenge.Tracking.Application.Services
 {
-    public class LocationService(IBus bus, IConfiguration config) : ILocationService
+    public class LocationService(IMessageBus bus) : ILocationService
     {
-        private readonly IBus _bus = bus;
-        private readonly IConfiguration _config = config;
+        private readonly IMessageBus _bus = bus;
 
         public bool IsValidUpdate(LocationUpdateRequest updateRequest)
         {
@@ -16,7 +15,14 @@ namespace RabbitMQChallenge.Tracking.Application.Services
 
         public void ProcessUpdate(LocationUpdateRequest updateRequest)
         {
-            _bus.Publish(updateRequest, _config["BusConfig:GeoUpdateQueue"]!);
+            LocationUpdateCommand command = new () 
+            {  
+               DeviceId = updateRequest.DeviceId,
+               Latitude =updateRequest.Latitude,
+               Longitude =updateRequest.Longitude
+            };
+
+            _bus.SendCommand(command);
         }
     }
 }
