@@ -2,7 +2,7 @@
 using System.Text.Json;
 
 double minimum = 10.000, maximum = 130.999;
-int totalRequests = 10;
+int totalRequests = 1;
 using HttpClient client = new();
 Random random = new();
 

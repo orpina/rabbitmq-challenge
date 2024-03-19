@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RabbitMQChallenge.Domain.Core.Bus;
 using RabbitMQChallenge.Infrastructure.Bus;
+using RabbitMQChallenge.Mapping.Application.Services;
 using RabbitMQChallenge.Tracking.Application.Services;
 
 namespace RabbitMQChallenge.Infrastructure.IoC
@@ -11,6 +12,7 @@ namespace RabbitMQChallenge.Infrastructure.IoC
         {
             services.AddTransient<IBus, RabbitMQBus>();
             services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IGeoPointService, GeoPointService>();
         }
     }
 }
