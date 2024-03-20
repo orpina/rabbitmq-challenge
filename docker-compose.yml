@@ -17,9 +17,8 @@ services:
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 30s
-      timeout: 30s
-      retries: 3
- 
+      timeout: 10s
+      retries: 3    
   rabbitmqchallenge.mapping.api:
     image: ${DOCKER_REGISTRY-}rabbitmqchallengemappingapi
     container_name: "rabbitmq-challenge_mapping-api"
@@ -33,7 +32,21 @@ services:
         condition: service_healthy    
     networks:
       - rabbitmq_challenge_network
-
+    restart: on-failure:3
+  rabbitmqchallenge.tracking.api:
+    image: ${DOCKER_REGISTRY-}rabbitmqchallengetrackingapi
+    container_name: "rabbitmq-challenge_tracking-api"
+    build:
+      context: .
+      dockerfile: RabbitMQChallenge.Tracking.API/Dockerfile
+    ports:
+       - "3502:8081" # HTTPS_PORT
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - rabbitmq_challenge_network
+    restart: on-failure:3
 networks:
   rabbitmq_challenge_network:
     driver: bridge
