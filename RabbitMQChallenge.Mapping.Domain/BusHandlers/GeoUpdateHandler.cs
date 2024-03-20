@@ -1,9 +1,8 @@
-﻿using RabbitMQChallenge.Domain.Core.Bus;
-using RabbitMQChallenge.Mapping.Application.Services;
+﻿using RabbitMQChallenge.Mapping.Application.Services;
 
 namespace RabbitMQChallenge.Mapping.Domain.BusHandlers
 {
-    public class GeoUpdateHandle : IBusMessageHandler
+    public class GeoUpdateHandle : IMessageBusHandler
     {
         private readonly IGeoPointService _geoPointService;
 

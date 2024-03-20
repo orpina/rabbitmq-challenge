@@ -19,7 +19,8 @@ namespace RabbitMQChallenge.Tracking.Application.Services
             {  
                DeviceId = updateRequest.DeviceId,
                Latitude =updateRequest.Latitude,
-               Longitude =updateRequest.Longitude
+               Longitude =updateRequest.Longitude,
+               TimeStamp = DateTime.UtcNow
             };
 
             _bus.SendCommand(command);

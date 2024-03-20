@@ -43,10 +43,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Mapping.Application", "RabbitMQChallenge.Mapping.Application\RabbitMQChallenge.Mapping.Application.csproj", "{6502A8E0-B869-4F2F-A1A2-BD9C7660F419}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{2F610B77-7663-46F3-852C-DBEAC96F7066}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Mapping.Domain", "RabbitMQChallenge.Mapping.Domain\RabbitMQChallenge.Mapping.Domain.csproj", "{1562D1EB-83A1-4111-822F-F282A8DE3A4C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,10 +81,6 @@ Global
 		{6502A8E0-B869-4F2F-A1A2-BD9C7660F419}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6502A8E0-B869-4F2F-A1A2-BD9C7660F419}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6502A8E0-B869-4F2F-A1A2-BD9C7660F419}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1562D1EB-83A1-4111-822F-F282A8DE3A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1562D1EB-83A1-4111-822F-F282A8DE3A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1562D1EB-83A1-4111-822F-F282A8DE3A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1562D1EB-83A1-4111-822F-F282A8DE3A4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,8 +102,6 @@ Global
 		{6E0B1260-7C4B-43D8-826C-818DC1A31973} = {55287799-7E3E-41EB-9472-B0EA380B6140}
 		{65216185-3EFB-4062-91B2-7212C8F577B1} = {CDC5B97D-1489-43F0-8876-796AF978F78D}
 		{6502A8E0-B869-4F2F-A1A2-BD9C7660F419} = {65216185-3EFB-4062-91B2-7212C8F577B1}
-		{2F610B77-7663-46F3-852C-DBEAC96F7066} = {CDC5B97D-1489-43F0-8876-796AF978F78D}
-		{1562D1EB-83A1-4111-822F-F282A8DE3A4C} = {2F610B77-7663-46F3-852C-DBEAC96F7066}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1CE3CAC-5E47-4405-BC18-9B6B2214D3B9}

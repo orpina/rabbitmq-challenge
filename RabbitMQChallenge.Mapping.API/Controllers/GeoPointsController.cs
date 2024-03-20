@@ -13,7 +13,9 @@ namespace RabbitMQChallenge.Mapping.API.Controllers
         [Route("GetById/{deviceId}")]
         public IActionResult Get(string deviceId)
         {
-            return Ok(_geoPointService.GetGeoPoints(deviceId));
+            var results = _geoPointService.GetGeoPoints(deviceId);
+
+            return Ok(new { total = results.Count(), results});
         }
     }
 }

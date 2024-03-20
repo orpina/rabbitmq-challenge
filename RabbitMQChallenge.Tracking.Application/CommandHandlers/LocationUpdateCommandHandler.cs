@@ -11,8 +11,14 @@ namespace RabbitMQChallenge.Tracking.Application.CommandHandlers
 
         public Task<bool> Handle(LocationUpdateCommand command, CancellationToken cancellationToken)
         {
-            LocationUpdateEvent customEvent = new (command.DeviceId, command.Latitude, command.Longitude);
-            
+            LocationUpdateEvent customEvent = new ()
+            {
+                DeviceId = command.DeviceId,
+                Latitude = command.Latitude,
+                Longitude = command.Longitude,
+                TimeStamp = command.TimeStamp
+            };
+
             _bus.Publish(customEvent);
 
             return Task.FromResult(true);

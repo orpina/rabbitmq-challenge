@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -16,7 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\RabbitMQChallenge.Infrastructure.IoC\RabbitMQChallenge.Infrastructure.IoC.csproj" />
     <ProjectReference Include="..\RabbitMQChallenge.Mapping.Application\RabbitMQChallenge.Mapping.Application.csproj" />
-    <ProjectReference Include="..\RabbitMQChallenge.Mapping.Domain\RabbitMQChallenge.Mapping.Domain.csproj" />
   </ItemGroup>
 
 </Project>

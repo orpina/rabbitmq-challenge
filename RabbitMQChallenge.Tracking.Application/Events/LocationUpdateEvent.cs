@@ -2,12 +2,12 @@
 
 namespace RabbitMQChallenge.Tracking.Application.Events
 {
-    public class LocationUpdateEvent(string deviceId, double latitude, double longitude) : BaseEvent
+    public class LocationUpdateEvent : BaseEvent
     {
-        public string DeviceId { get; private set; } = deviceId;
+        public required string DeviceId { get; set; }
 
-        public double Latitude { get; private set; } = latitude;
+        public double Latitude { get; set; }
 
-        public double Longitude { get; private set; } = longitude;
+        public double Longitude { get; set; }
     }
 }
