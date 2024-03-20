@@ -1,0 +1,39 @@
+version: '3.4'
+name: rabbitmq-challenge
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.13.0-management
+    ports:
+      - "5672:5672"  # default port
+      - "15672:15672"  # management UI port
+    hostname: rabbitmq-challenge_broker-server
+    container_name: "rabbitmq-challenge_broker-server"
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmqchallengeuser
+      RABBITMQ_DEFAULT_PASS: rabbitmqchallengepass
+    networks:
+      - rabbitmq_challenge_network
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+ 
+  rabbitmqchallenge.mapping.api:
+    image: ${DOCKER_REGISTRY-}rabbitmqchallengemappingapi
+    container_name: "rabbitmq-challenge_mapping-api"
+    build:
+      context: .
+      dockerfile: RabbitMQChallenge.Mapping.API/Dockerfile
+    ports:
+       - "3501:8081" # HTTPS_PORT
+    depends_on:
+      rabbitmq:
+        condition: service_healthy    
+    networks:
+      - rabbitmq_challenge_network
+
+networks:
+  rabbitmq_challenge_network:
+    driver: bridge

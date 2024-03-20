@@ -27,21 +27,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQChallenge.Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{ADB67247-B9A9-402A-AF42-32644D22D442}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Tracking.Application", "RabbitMQChallenge.Tracking.Application\RabbitMQChallenge.Tracking.Application.csproj", "{7DA43452-9303-45B7-BC55-7345FED3BF31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQChallenge.Tracking.Application", "RabbitMQChallenge.Tracking.Application\RabbitMQChallenge.Tracking.Application.csproj", "{7DA43452-9303-45B7-BC55-7345FED3BF31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GPSSimulator", "GPSSimulator", "{422C9ECE-7625-42F7-8282-61A0C4B98D9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPSSimulator", "GPSSimulator\GPSSimulator.csproj", "{B193455B-0E86-409D-B10B-F81A953EA0A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPSSimulator", "GPSSimulator\GPSSimulator.csproj", "{B193455B-0E86-409D-B10B-F81A953EA0A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mapping", "Mapping", "{CDC5B97D-1489-43F0-8876-796AF978F78D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{55287799-7E3E-41EB-9472-B0EA380B6140}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Mapping.API", "RabbitMQChallenge.Mapping.API\RabbitMQChallenge.Mapping.API.csproj", "{6E0B1260-7C4B-43D8-826C-818DC1A31973}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQChallenge.Mapping.API", "RabbitMQChallenge.Mapping.API\RabbitMQChallenge.Mapping.API.csproj", "{6E0B1260-7C4B-43D8-826C-818DC1A31973}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{65216185-3EFB-4062-91B2-7212C8F577B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQChallenge.Mapping.Application", "RabbitMQChallenge.Mapping.Application\RabbitMQChallenge.Mapping.Application.csproj", "{6502A8E0-B869-4F2F-A1A2-BD9C7660F419}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQChallenge.Mapping.Application", "RabbitMQChallenge.Mapping.Application\RabbitMQChallenge.Mapping.Application.csproj", "{6502A8E0-B869-4F2F-A1A2-BD9C7660F419}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EB0F1722-BDDA-4335-84F0-FF1E2D37BAED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{6502A8E0-B869-4F2F-A1A2-BD9C7660F419}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6502A8E0-B869-4F2F-A1A2-BD9C7660F419}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6502A8E0-B869-4F2F-A1A2-BD9C7660F419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB0F1722-BDDA-4335-84F0-FF1E2D37BAED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0F1722-BDDA-4335-84F0-FF1E2D37BAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0F1722-BDDA-4335-84F0-FF1E2D37BAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0F1722-BDDA-4335-84F0-FF1E2D37BAED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

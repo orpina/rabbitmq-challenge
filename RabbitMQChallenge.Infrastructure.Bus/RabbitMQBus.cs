@@ -24,6 +24,8 @@ namespace RabbitMQChallenge.Infrastructure.Bus
             ConnectionFactory factory = new ()
             {
                 HostName = _config["BusConfig:HostName"],
+                UserName = _config["BusConfig:UserName"],
+                Password = _config["BusConfig:Password"],
             };
 
             string eventName = customEvent.GetType().Name;
@@ -75,6 +77,8 @@ namespace RabbitMQChallenge.Infrastructure.Bus
             ConnectionFactory factory = new()
             {
                 HostName = _config["BusConfig:HostName"],
+                UserName = _config["BusConfig:UserName"],
+                Password = _config["BusConfig:Password"],
                 DispatchConsumersAsync = true,
             };
 
