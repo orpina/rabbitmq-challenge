@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 
+bool useContainerAPI = true;
 double minimum = 10.000, maximum = 130.999;
 int totalRequests = 10;
 using HttpClient client = new();
@@ -20,7 +21,7 @@ for (int i = 1; i <= totalRequests; i++)
         "application/json"
         );
 
-    var response = await client.PostAsync("https://localhost:7053/api/Location", content);
+    var response = await client.PostAsync(useContainerAPI ? "https://localhost:3502/api/Location" : "https://localhost:7053/api/Location", content);
 
     Console.WriteLine($"Sending request: {i} of {totalRequests}");
 
