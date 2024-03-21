@@ -44,3 +44,10 @@ Wait until all containers are successfully created and initiallized.If any of th
               "latitude": 120.10093,
               "longitude": 78.45061
             }
+# GPS SIMULATOR
+ Small console app to trigger location update requests to the RabbitMQChallenge.Tracking.API
+ - Variables
+ 	- **useContainerAPI**: set to true to trigger with the the *containerizedTrackingAPIURL*. If false you will need to set the url in the *localTrackingAPIURL* variable
+	- **containerizedTrackingAPIURL**: URL of the containerized tracking API
+	- **localTrackingAPIURL**: URL of the tracking API when debugging
+ 	- **totalRequests**: is the number of requests to be triggered
