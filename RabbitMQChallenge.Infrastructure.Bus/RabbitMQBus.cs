@@ -1,35 +1,35 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQChallenge.Domain.Core.Abstractions;
 using RabbitMQChallenge.Domain.Core.Interfaces;
+using RabbitMQChallenge.Domain.Core.Models;
 using System.Text;
+using System.Text.Json;
 
 namespace RabbitMQChallenge.Infrastructure.Bus
 {
-    public class RabbitMQBus(IConfiguration config, IMediator mediator, IServiceScopeFactory serviceScopeFactory) : IMessageBus
+    public class RabbitMQBus(IMediator mediator, IServiceScopeFactory serviceScopeFactory, BusConfiguration busConfig) : IMessageBus
     {
-        private readonly IServiceScopeFactory _serviceScopeFactory = serviceScopeFactory;
-        private readonly IConfiguration _config = config;
         private readonly IMediator _mediator = mediator;
+        private readonly IServiceScopeFactory _serviceScopeFactory = serviceScopeFactory;
+        private readonly BusConfiguration _busConfig = busConfig;
         private readonly Dictionary<string, List<Type>> _handlers = [];
         private readonly List<Type> _eventTypes = [];
 
         public void Publish<T>(T customEvent)
             where T : BaseEvent
-        {             
+        {
             ConnectionFactory factory = new ()
             {
-                HostName = _config["BusConfig:HostName"],
-                UserName = _config["BusConfig:UserName"],
-                Password = _config["BusConfig:Password"],
+                HostName = _busConfig.HostName,
+                UserName = _busConfig.UserName,
+                Password = _busConfig.Password,
             };
 
             string eventName = customEvent.GetType().Name;
-            string message = JsonConvert.SerializeObject(customEvent);
+            string message = JsonSerializer.Serialize(customEvent);
 
             using IConnection conn = factory.CreateConnection();
             using IModel model = conn.CreateModel();
@@ -76,9 +76,9 @@ namespace RabbitMQChallenge.Infrastructure.Bus
         {
             ConnectionFactory factory = new()
             {
-                HostName = _config["BusConfig:HostName"],
-                UserName = _config["BusConfig:UserName"],
-                Password = _config["BusConfig:Password"],
+                HostName = _busConfig.HostName,
+                UserName = _busConfig.UserName,
+                Password = _busConfig.Password,
                 DispatchConsumersAsync = true,
             };
 
@@ -93,7 +93,7 @@ namespace RabbitMQChallenge.Infrastructure.Bus
 
             consumer.Received += Consumer_Received;
 
-            model.BasicConsume(eventName, true, consumer);
+            model.BasicConsume(eventName, _busConfig.IsAutoAck, consumer);
         }
 
         private async Task Consumer_Received(object sender, BasicDeliverEventArgs e)
@@ -133,11 +133,11 @@ namespace RabbitMQChallenge.Infrastructure.Bus
 
                     Type eventType = _eventTypes.SingleOrDefault(t => t.Name == queueName)!;
 
-                    object @event = JsonConvert.DeserializeObject(message, eventType)!;
+                    object customEvent = JsonSerializer.Deserialize(message, eventType)!;
 
                     Type concreteType = typeof(IMessageBusHandler<>).MakeGenericType(eventType)!;
 
-                    await (Task)concreteType.GetMethod("Handle")?.Invoke(handler, [@event])!;
+                    await (Task)concreteType.GetMethod("Handle")?.Invoke(handler, [customEvent])!;
                 }
             }
         }

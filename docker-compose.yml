@@ -7,8 +7,8 @@ services:
     ports:
       - "5672:5672"  # default port
       - "15672:15672"  # management UI port
-    hostname: rabbitmq-challenge_broker-server
-    container_name: "rabbitmq-challenge_broker-server"
+    hostname: rabbitserver117
+    container_name: rabbitmq-challenge_broker-server
     environment:
       RABBITMQ_DEFAULT_USER: rabbitmqchallengeuser
       RABBITMQ_DEFAULT_PASS: rabbitmqchallengepass
@@ -20,8 +20,7 @@ services:
       timeout: 10s
       retries: 3    
   rabbitmqchallenge.mapping.api:
-    image: ${DOCKER_REGISTRY-}rabbitmqchallengemappingapi
-    container_name: "rabbitmq-challenge_mapping-api"
+    container_name: rabbitmq-challenge_mapping-api
     build:
       context: .
       dockerfile: RabbitMQChallenge.Mapping.API/Dockerfile
@@ -34,8 +33,7 @@ services:
       - rabbitmq_challenge_network
     restart: on-failure:3
   rabbitmqchallenge.tracking.api:
-    image: ${DOCKER_REGISTRY-}rabbitmqchallengetrackingapi
-    container_name: "rabbitmq-challenge_tracking-api"
+    container_name: rabbitmq-challenge_tracking-api
     build:
       context: .
       dockerfile: RabbitMQChallenge.Tracking.API/Dockerfile
