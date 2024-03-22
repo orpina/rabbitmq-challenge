@@ -45,6 +45,20 @@ services:
     networks:
       - rabbitmq_challenge_network
     restart: on-failure:3
+  rabbitmqchallenge.analytics.api:
+    container_name: rabbitmq-challenge_analytics-api
+    build:
+      context: .
+      dockerfile: RabbitMQChallenge.Analytics.API/Dockerfile
+    ports:
+       - "3503:8081" # HTTPS_PORT
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - rabbitmq_challenge_network
+    restart: on-failure:3
+
 networks:
   rabbitmq_challenge_network:
     driver: bridge
