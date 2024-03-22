@@ -25,7 +25,7 @@ namespace RabbitMQChallenge.Infrastructure.Bus
         public void Publish<T>(T customEvent)
             where T : BaseEvent
         {
-            if (customEvent is null || customEvent.BusAudience.Count == 0)
+            if (customEvent is null || customEvent.BusAudience is null || customEvent.BusAudience.Count == 0)
             {
                 return;
             }
@@ -48,7 +48,7 @@ namespace RabbitMQChallenge.Infrastructure.Bus
             customEvent.BusAudience.ForEach((string queueName) =>
             {
                 model.QueueDeclare(queueName, false, false, false, null);
-                model.BasicPublish(string.Empty, eventName, null, body);
+                model.BasicPublish(string.Empty, queueName, null, body);
             });
         }
 
@@ -65,8 +65,8 @@ namespace RabbitMQChallenge.Infrastructure.Bus
                 _eventTypes.Add(typeof(T));
             }
 
-            bool existsQueueName = _handlers.ContainsKey(eventName);
-            if (!existsQueueName)
+            bool existsHandler = _handlers.ContainsKey(eventName);
+            if (!existsHandler)
             {
                 _handlers.Add(eventName, []);
             }
@@ -94,8 +94,6 @@ namespace RabbitMQChallenge.Infrastructure.Bus
                 DispatchConsumersAsync = true,
             };
 
-            string eventName = typeof(T).Name;
-
             IConnection conn = factory.CreateConnection();
             IModel model = conn.CreateModel();
 
@@ -103,14 +101,14 @@ namespace RabbitMQChallenge.Infrastructure.Bus
 
             AsyncEventingBasicConsumer consumer = new(model);
 
-            consumer.Received += Consumer_Received;
+            consumer.Received += Consumer_Received<T>;
 
-            model.BasicConsume(eventName, _busConfig.IsAutoAck, consumer);
+            model.BasicConsume(queueName, _busConfig.IsAutoAck, consumer);
         }
 
-        private async Task Consumer_Received(object sender, BasicDeliverEventArgs e)
+        private async Task Consumer_Received<T>(object sender, BasicDeliverEventArgs e)
         {
-            string eventName = e.RoutingKey;
+            string eventName = typeof(T).Name;
             var message = Encoding.UTF8.GetString(e.Body.Span);
 
             try
@@ -124,15 +122,15 @@ namespace RabbitMQChallenge.Infrastructure.Bus
             }
         }
 
-        private async Task ProcessEvent(string queueName, string message)
+        private async Task ProcessEvent(string eventName, string message)
         {
-            bool exists = _handlers.ContainsKey(queueName);
+            bool exists = _handlers.ContainsKey(eventName);
 
             if (exists)
             {
                 using IServiceScope scope = _serviceScopeFactory.CreateScope();
 
-                List<Type> subscriptions = _handlers[queueName];
+                List<Type> subscriptions = _handlers[eventName];
 
                 foreach (var subscription in subscriptions)
                 {
@@ -143,7 +141,7 @@ namespace RabbitMQChallenge.Infrastructure.Bus
                         continue;
                     }
 
-                    Type eventType = _eventTypes.SingleOrDefault(t => t.Name == queueName)!;
+                    Type eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName)!;
 
                     object customEvent = JsonSerializer.Deserialize(message, eventType, _jsonSerializerOptions)!;
 
