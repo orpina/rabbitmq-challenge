@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>9e283606-8c44-48ab-aef4-9c675f54e04b</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RabbitMQChallenge.Domain.Core\RabbitMQChallenge.Domain.Core.csproj" />
+    <ProjectReference Include="..\RabbitMQChallenge.Infrastructure.Bus\RabbitMQChallenge.Infrastructure.Bus.csproj" />
+    <ProjectReference Include="..\RabbitMQChallenge.Tracking.Application\RabbitMQChallenge.Tracking.Application.csproj" />
+  </ItemGroup>
+
+</Project>

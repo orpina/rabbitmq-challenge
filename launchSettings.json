@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "rabbitmqchallenge.mapping.api": "StartDebugging",
+        "rabbitmqchallenge.tracking.api": "StartDebugging",
+        "rabbitmqchallenge.analytics.api": "StartDebugging"
+      }
+    }
+  }
+}

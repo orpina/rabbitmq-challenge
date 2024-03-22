@@ -1,0 +1,6 @@
+@RabbitMQChallenge.Analytics.API_HostAddress = http://localhost:5105
+
+GET {{RabbitMQChallenge.Analytics.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
