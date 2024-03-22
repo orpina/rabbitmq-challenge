@@ -28,9 +28,9 @@ Example for publish and subscribe APIs using RabbitMQ as message broker and Medi
 
 - 1 Clone this repository to your PC, use master branch
 - 2 Open cloned repository with Visual Studio, switch solution configuration to Release - Any CPU
-- 3 Build Solution
-- 4 Run command: **docker compose build** 
-- 5 Run command: **docker compose up**
+- 3 Build Solution. Ensure Docker is up and running before building
+- 4 After solution build succeeds run command: **docker compose build** 
+- 5 After docker build is done run command: **docker compose up**
 - 6 Wait until all containers are successfully created and initiallized. **If any of the service containers inside of the rabbitmq-challenge container is paused or stopped you will need to start them manually**
 # RABBITMQ CONTAINER SERVICE
 Container created from the image  '*3.13.0-management*'  available from the oficial images in https://hub.docker.com/_/rabbitmq  
@@ -39,9 +39,9 @@ Container created from the image  '*3.13.0-management*'  available from the ofic
  http://localhost:15672/#/
 ### Credentials
 **User**:
- -     rabbitmqchallengeuser  
+ -     rabbitmqchallengeuser
 **Password**:
- -     rabbitmqchallengepass  
+ -     rabbitmqchallengepass
 **Host Name**:
  -     rabbitserver117
 # API'S
@@ -74,7 +74,9 @@ Container created from the image  '*3.13.0-management*'  available from the ofic
               "longitude": 78.45061
             }
 # TESTING WORKFLOW
-Once all containers are up and running
+Check exposed methods for each API in the above sections.  
+Once all containers are up and running. 
+
 - Send a location update using the POST method in **RabbitMQChallenge.Tracking.API**. You can use the Swagger Access of the API and the payload example or the GPS SIMULATOR.
 - After succesfully completing the previous step you can access the subscriber API's to validate if the message was received.
   	- **RabbitMQChallenge.Analytics.API**. Access to the exposed GET method, you can access the GET endpoint URL or through the Swagger Access. You will need to replace the *device_id* for the value used in the POST (*A104-B1500023-0001* if you used the payload example)
