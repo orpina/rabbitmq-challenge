@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RabbitMQChallenge.Mapping.Application.Models;
 using RabbitMQChallenge.Mapping.Application.Services;
 
 namespace RabbitMQChallenge.Mapping.API.Controllers
@@ -13,9 +14,29 @@ namespace RabbitMQChallenge.Mapping.API.Controllers
         [Route("GetById/{deviceId}")]
         public IActionResult Get(string deviceId)
         {
+            if (string.IsNullOrWhiteSpace(deviceId))
+            {
+                return BadRequest($"Invalid { nameof(deviceId) }");
+            }
+
             var results = _geoPointService.GetGeoPoints(deviceId);
 
-            return Ok(new { total = results.Count(), results});
+            if (results is null || !results.Any())
+            {
+                return Ok(new
+                {
+                    total = 0,
+                    results = Enumerable.Empty<GeoPointVM>(),
+                    message = $"No Geo Points registered for device { nameof(deviceId) }"
+                });
+            }
+
+            return Ok(new
+            {
+                total = results.Count(),
+                results,
+                message = string.Empty
+            });
         }
     }
 }
