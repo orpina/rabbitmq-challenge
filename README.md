@@ -24,11 +24,13 @@ Example for publish and subscribe APIs using RabbitMQ as message broker and Medi
    - >**3503**  analytics.api
 - **If you already have containers with any of the previous names or any of the previous ports are in use, you will need to update the docker-compose.yaml to rename the container names and/or switch services ports**
 # STEPS
+**For commands you can use the Package Manager Console in Visual Studio. Access from the menu Tools > NuGet Package Manager > Package Manager Console**
+
 - 1 Clone this repository to your PC, use master branch
 - 2 Open cloned repository with Visual Studio, switch solution configuration to Release - Any CPU
 - 3 Build Solution
-- 4 Run command: docker compose build
-- 5 Run command: docker compose up
+- 4 Run command: **docker compose build** 
+- 5 Run command: **docker compose up**
 - 6 Wait until all containers are successfully created and initiallized. **If any of the service containers inside of the rabbitmq-challenge container is paused or stopped you will need to start them manually**
 # RABBITMQ CONTAINER SERVICE
 Container created from the image  '*3.13.0-management*'  available from the oficial images in https://hub.docker.com/_/rabbitmq  
