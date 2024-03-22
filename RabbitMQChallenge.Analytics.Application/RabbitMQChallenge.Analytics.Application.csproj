@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RabbitMQChallenge.Domain.Core\RabbitMQChallenge.Domain.Core.csproj" />
+  </ItemGroup>
+
 </Project>

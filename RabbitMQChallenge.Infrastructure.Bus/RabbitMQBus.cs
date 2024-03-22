@@ -17,6 +17,10 @@ namespace RabbitMQChallenge.Infrastructure.Bus
         private readonly BusConfiguration _busConfig = busConfig;
         private readonly Dictionary<string, List<Type>> _handlers = [];
         private readonly List<Type> _eventTypes = [];
+        private readonly JsonSerializerOptions _jsonSerializerOptions = new () 
+        { 
+            PropertyNameCaseInsensitive = true
+        };
 
         public void Publish<T>(T customEvent)
             where T : BaseEvent
@@ -133,7 +137,7 @@ namespace RabbitMQChallenge.Infrastructure.Bus
 
                     Type eventType = _eventTypes.SingleOrDefault(t => t.Name == queueName)!;
 
-                    object customEvent = JsonSerializer.Deserialize(message, eventType)!;
+                    object customEvent = JsonSerializer.Deserialize(message, eventType, _jsonSerializerOptions)!;
 
                     Type concreteType = typeof(IMessageBusHandler<>).MakeGenericType(eventType)!;
 

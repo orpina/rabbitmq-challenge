@@ -13,4 +13,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RabbitMQChallenge.Analytics.Application\RabbitMQChallenge.Analytics.Application.csproj" />
+    <ProjectReference Include="..\RabbitMQChallenge.Domain.Core\RabbitMQChallenge.Domain.Core.csproj" />
+    <ProjectReference Include="..\RabbitMQChallenge.Infrastructure.Bus\RabbitMQChallenge.Infrastructure.Bus.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -73,6 +73,7 @@ void RegisterServices()
         };
     }
 }
+
 void ConfigureBusSubscription()
 {
     using IServiceScope serviceScope = app.Services.CreateScope();
