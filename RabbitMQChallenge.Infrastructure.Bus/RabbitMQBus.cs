@@ -25,6 +25,11 @@ namespace RabbitMQChallenge.Infrastructure.Bus
         public void Publish<T>(T customEvent)
             where T : BaseEvent
         {
+            if (customEvent is null || customEvent.BusAudience.Count == 0)
+            {
+                return;
+            }
+
             ConnectionFactory factory = new ()
             {
                 HostName = _busConfig.HostName,
@@ -40,11 +45,14 @@ namespace RabbitMQChallenge.Infrastructure.Bus
 
             byte[] body = Encoding.UTF8.GetBytes(message);
 
-            model.QueueDeclare(eventName, false, false, false, null);
-            model.BasicPublish(string.Empty, eventName, null, body);
+            customEvent.BusAudience.ForEach((string queueName) =>
+            {
+                model.QueueDeclare(queueName, false, false, false, null);
+                model.BasicPublish(string.Empty, eventName, null, body);
+            });
         }
 
-        public void Subscribe<T, R>()
+        public void Subscribe<T, R>(string queueName)
             where T : BaseEvent
             where R : IMessageBusHandler<T>
         {
@@ -68,7 +76,7 @@ namespace RabbitMQChallenge.Infrastructure.Bus
                 _handlers[eventName].Add(handlerType);
             }
 
-            Initialize<T>();
+            Initialize<T>(queueName);
         }
 
         public Task SendCommand<T>(T command) where T : BaseCommand
@@ -76,7 +84,7 @@ namespace RabbitMQChallenge.Infrastructure.Bus
             return _mediator.Send(command);
         }
 
-        private void Initialize<T>()
+        private void Initialize<T>(string queueName)
         {
             ConnectionFactory factory = new()
             {
@@ -91,7 +99,7 @@ namespace RabbitMQChallenge.Infrastructure.Bus
             IConnection conn = factory.CreateConnection();
             IModel model = conn.CreateModel();
 
-            model.QueueDeclare(eventName, false, false, false, null);
+            model.QueueDeclare(queueName, false, false, false, null);
 
             AsyncEventingBasicConsumer consumer = new(model);
 

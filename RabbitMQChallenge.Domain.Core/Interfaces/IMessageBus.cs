@@ -7,7 +7,7 @@ namespace RabbitMQChallenge.Domain.Core.Interfaces
         void Publish<T>(T customEvent)
             where T : BaseEvent;
 
-        void Subscribe<T, R>() 
+        void Subscribe<T, R>(string queueName) 
             where T : BaseEvent 
             where R : IMessageBusHandler<T>;
 

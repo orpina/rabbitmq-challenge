@@ -78,5 +78,5 @@ void ConfigureBusSubscription()
 {
     using IServiceScope serviceScope = app.Services.CreateScope();
     IMessageBus messageBus = serviceScope.ServiceProvider.GetRequiredService<IMessageBus>();
-    messageBus.Subscribe<LocationUpdateEvent, LocationUpdateEventHandler>();
+    messageBus.Subscribe<LocationUpdateEvent, LocationUpdateEventHandler>(app.Configuration["BusConfig:MappingQueue"]!);
 }
