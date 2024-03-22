@@ -30,7 +30,7 @@ Example for publish and subscribe APIs using RabbitMQ as message broker and Medi
 - 2 Open cloned repository with Visual Studio, switch solution configuration to Release - Any CPU
 - 3 Build Solution. Ensure Docker is up and running before building
 - 4 After solution build succeeds run command: **docker compose build** 
-- 5 After docker build is done run command: **docker compose up**
+- 5 After docker build is done run command: **docker compose up**. **IMPORTANT** Keep this terminal alive, do not terminate pressing Ctrl + c, if you do so containers will be stopped. If stopped you can manually start the '*rabbitmq-challenge*' containter in Docker Desktop
 - 6 Wait until all containers are successfully created and initiallized. **If any of the service containers inside of the rabbitmq-challenge container is paused or stopped you will need to start them manually**  
 
 - To shut down you can close current Terminal then open a new one and run command: **docker compose down**
@@ -47,6 +47,8 @@ Container created from the image  '*3.13.0-management*'  available from the ofic
 **Host Name**:
  -     rabbitserver117
 # API'S
+**IMPORTANT Make sure you access urls using HTTPS protocol, HTTP protocol is disabled**  
+
 ## RabbitMQChallenge.Mapping.API
 ### Swagger Access:
 - https://localhost:3501/swagger/index.html
