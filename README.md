@@ -105,4 +105,10 @@ In order to debug project API's instead of launch the docker containers
 - If you are not able to access the RabbitMQ Management UI (port 15672) you may need to run this command:
 	-     rabbitmq-plugins enable rabbitmq_management
 -  Local configurations in appsettings.Development.json for RabbitMQ connection are set to the default values when running local server. LocalHostName = localhost, LocalUserName = guest, LocalPassword = guest. You can create a new host, user, password through the Management UI or the console and update and then update this values in the appsettings.Development.json
+# TROUBLESHOOTING
+**HTTPS Development Certificate**  
 
+If the API´s are refusing the requests ensure you trust the certificate. You can run this commands:  
+- dotnet dev-certs https --clean
+- dotnet dev-certs https --trust  
+- See https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-8.0&tabs=visual-studio%2Clinux-ubuntu#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos
